@@ -18,7 +18,7 @@ events = json.load(open("./events.json"))
 
 # Figuring out whats most efficient in terms of adding the hours in between the 9-5 workdays in as their own scheduled times to be worked around.
 
-x = "John"
+
 #Splitting up events[] by user_id
 # Checking lookingFor[] inputs for validity and their user_id
 
@@ -29,17 +29,22 @@ def getId(name):
 
 #Returns events associated with that user_id
 def getEvents(foundId):
-    return [event for event in events if event['user_id'] == foundId]
-
+    foundEvents = [event for event in events if event['user_id'] == foundId]
+    return foundEvents
 
 #Testing
-foundId = getId(x)
+def runTest(x):
+   
+    foundId = getId(x)
+    foundEvents = getEvents(foundId)
 
-eventsById = getEvents(foundId)
+
+    print("Testing Results-----")
+    print("Searching for ", x)
+    print("We found the id of ", foundId)
+    print("Which is associated with these events: ", foundEvents)
 
 
-
-print(foundId)
-print(eventsById)
-#def eventsById
-
+for x in lookingFor:
+    runTest(x)
+ 
