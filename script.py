@@ -27,13 +27,13 @@ def getId(name):
     foundId = next((person['id'] for person in users if person['name'] == name), False)
     return foundId
 
-#Returns events associated with that user_id
+#Returns events associated with provided user_id
 def getEvents(foundId):
     foundEvents = [event for event in events if event['user_id'] == foundId]
     return foundEvents
 
 #Testing
-def runTest(x):
+def returnSchedule(x):
    
     foundId = getId(x)
     foundEvents = getEvents(foundId)
@@ -45,6 +45,11 @@ def runTest(x):
     print("Which is associated with these events: ", foundEvents)
 
 
-for x in lookingFor:
-    runTest(x)
+def returnForAllSysArgs():
+    for x in lookingFor:
+        returnSchedule(x)
+
+
+
+returnForAllSysArgs()
  
