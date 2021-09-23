@@ -44,3 +44,5 @@ create a script to ...
 
     Ive done some research into python datetime library. Im thinking about how to manage the whole "Were scheduling things at 15 min intervals but be able to handle an 1136-1249 type situation".
                     Not sure how itl effect runtime, but im going to take it one day at a time... literally. Starting at 13 ending at 21, instead of working it as multiple days with those times being "booked". Or I could just display them seperate by day in the return fn if its quicker/less expensive.
+
+                    

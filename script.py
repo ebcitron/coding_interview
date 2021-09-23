@@ -50,6 +50,5 @@ def returnForAllSysArgs():
         returnSchedule(x)
 
 
-
+##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
- 
