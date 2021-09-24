@@ -2,6 +2,8 @@ import json
 import sys
 from datetime import datetime
 
+
+
 # Determine input variables
 n = len(sys.argv)
 lookingFor = []
@@ -38,15 +40,14 @@ def cleanUpEvents(foundEvents):
     for x in foundEvents:
         cleanEvents.append((x['start_time'], x['end_time']))
 
-    # stripped = []
-    # for x in cleanEvents:
-    #     y = x[0]
-    #     stripped.append((x[1]))
-        
+    
+    
     return cleanEvents
-
+    
 # Merging everyones schedule
-xxx= ('2021-07-05T16:00:00', '2021-07-05T17:00:00')
+
+
+
 
 #Testing
 def returnSchedule(x):
@@ -54,7 +55,14 @@ def returnSchedule(x):
     foundId = getId(x)
     foundEvents = getEvents(foundId)
     cleanEvents = cleanUpEvents(foundEvents)
-
+    stripped = []
+    for x in cleanEvents:
+        a = datetime.strptime(x[0], "%Y-%m-%dT%H:%M:%S")
+        b = datetime.strptime(x[1],"%Y-%m-%dT%H:%M:%S")
+        newOne = (a,b)
+        stripped.append(newOne)
+    print("STRIPPED:    ", stripped)    
+    
     print("Testing Results-----")
     print("Searching for ", x)
     print("We found the id of ", foundId)
@@ -62,13 +70,25 @@ def returnSchedule(x):
     print("------------------------------------------------------")
     print("Cleaned up data:", cleanEvents)
     
+    if '2021-07-06T14:00:00' > '2021-07-05T13:30:00':
+        print("It IS Bigger")
+
     print("------------------------------------------------------")
+
+    return cleanEvents
+
+
 
 
 def returnForAllSysArgs():
+    merged = []
     for x in lookingFor:
-        returnSchedule(x)
-
-
+        merged.extend(returnSchedule(x))
+#
+# yeah ill have to pull out the datetime from the string 
+#     merged.sort
+        
+    
+    print("Merged list:  ", merged)
 ##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
