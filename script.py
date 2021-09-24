@@ -1,5 +1,6 @@
 import json
 import sys
+from datetime import datetime
 
 # Determine input variables
 n = len(sys.argv)
@@ -32,17 +33,36 @@ def getEvents(foundId):
     foundEvents = [event for event in events if event['user_id'] == foundId]
     return foundEvents
 
+def cleanUpEvents(foundEvents):
+    cleanEvents = []
+    for x in foundEvents:
+        cleanEvents.append((x['start_time'], x['end_time']))
+
+    # stripped = []
+    # for x in cleanEvents:
+    #     y = x[0]
+    #     stripped.append((x[1]))
+        
+    return cleanEvents
+
+# Merging everyones schedule
+xxx= ('2021-07-05T16:00:00', '2021-07-05T17:00:00')
+
 #Testing
 def returnSchedule(x):
    
     foundId = getId(x)
     foundEvents = getEvents(foundId)
-
+    cleanEvents = cleanUpEvents(foundEvents)
 
     print("Testing Results-----")
     print("Searching for ", x)
     print("We found the id of ", foundId)
     print("Which is associated with these events: ", foundEvents)
+    print("------------------------------------------------------")
+    print("Cleaned up data:", cleanEvents)
+    
+    print("------------------------------------------------------")
 
 
 def returnForAllSysArgs():
