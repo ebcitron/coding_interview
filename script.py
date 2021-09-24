@@ -5,12 +5,19 @@ from typing import List
 
 
 
+#Hardcoded Variables
+startDate = '2021-07-05T13:00:00'
+endDate = '2021-07-07T21:00:00'
+officeClosed = [('2021-07-05T21:00:00','2021-07-06T13:00:00'), ('2021-07-06T21:00:00','2021-07-07T13:00:00')]
+
+lookingFor = []
 # Determine input variables
 n = len(sys.argv)
-lookingFor = []
 for i in range(1, n):
     lookingFor.append(sys.argv[i])
     
+
+
 #Print out confirmation
 print("FreetimeScript looking for:", lookingFor)
 
@@ -34,6 +41,7 @@ def getId(name):
 #Returns events associated with provided user_id
 def getEvents(foundId):
     foundEvents = [event for event in events if event['user_id'] == foundId]
+
     return foundEvents
 
 def cleanUpEvents(foundEvents):
@@ -150,15 +158,17 @@ def returnForAllSysArgs():
     for x in lookingFor:
         merged.extend(returnSchedule(x))
 
-
-
+    closedClean = convertCleanTostripped(officeClosed)
+    print("ClosedClean: ", closedClean)
+    merged.extend(closedClean)
+    print("merge.extend closedclean: ", merged)
     merged.sort()
-
+    print("merge sorted: ", merged)
     combined = combineOverlapping(merged)
 #Now I have a merged list of all input schedules cleaned up into a comparable format of minsSinceStartTime/Date
 
 #Will have to add a default "Schedule" of "events" for the hours closed in between each day
-    print("Merged list:  ", merged)
+    # print("Merged list:  ", merged)
     print("Combined: ", combined)
 
 
