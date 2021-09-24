@@ -1,6 +1,6 @@
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 
@@ -40,14 +40,45 @@ def cleanUpEvents(foundEvents):
     for x in foundEvents:
         cleanEvents.append((x['start_time'], x['end_time']))
 
-    
-    
     return cleanEvents
+
+def convertCleanTostripped(cleanEvents):
+    stripped = []
+    for x in cleanEvents:
+        a = convertToMinSinceStart(x[0])
+        b = convertToMinSinceStart(x[1])
+        newOne = (a,b)
+        stripped.append(newOne)
+     
+    
+    
+    return stripped
     
 # Merging everyones schedule
 
 
 
+#Convert dateTime string into a workable number.
+
+def convertToMinSinceStart(s):
+    dt = datetime.strptime(s, "%Y-%m-%dT%H:%M:%S")
+    startDate = datetime.strptime('2021-07-05T13:00:00', "%Y-%m-%dT%H:%M:%S")
+    tDelta = dt-startDate
+    minsSince = int(tDelta.total_seconds()/60)
+    
+    # print("StartDate: ", startDate)
+    # print("dt: ", dt)
+    
+    # print("dt object: ", {dt})
+    # print("tDelta: ", tDelta)
+    # print("minsSince: ", minsSince)
+    return minsSince
+
+def convertBackToDate(s):
+    startDate = datetime.strptime('2021-07-05T13:00:00', "%Y-%m-%dT%H:%M:%S")
+    dateProper = startDate + timedelta(minutes=s)
+
+    return dateProper
 
 #Testing
 def returnSchedule(x):
@@ -55,13 +86,8 @@ def returnSchedule(x):
     foundId = getId(x)
     foundEvents = getEvents(foundId)
     cleanEvents = cleanUpEvents(foundEvents)
-    stripped = []
-    for x in cleanEvents:
-        a = datetime.strptime(x[0], "%Y-%m-%dT%H:%M:%S")
-        b = datetime.strptime(x[1],"%Y-%m-%dT%H:%M:%S")
-        newOne = (a,b)
-        stripped.append(newOne)
-    print("STRIPPED:    ", stripped)    
+    stripped = convertCleanTostripped(cleanEvents)
+   
     
     print("Testing Results-----")
     print("Searching for ", x)
@@ -69,13 +95,12 @@ def returnSchedule(x):
     print("Which is associated with these events: ", foundEvents)
     print("------------------------------------------------------")
     print("Cleaned up data:", cleanEvents)
+    print("Converted by mins Passed: ", stripped)
     
-    if '2021-07-06T14:00:00' > '2021-07-05T13:30:00':
-        print("It IS Bigger")
 
     print("------------------------------------------------------")
 
-    return cleanEvents
+    return stripped
 
 
 
@@ -84,11 +109,16 @@ def returnForAllSysArgs():
     merged = []
     for x in lookingFor:
         merged.extend(returnSchedule(x))
-#
-# yeah ill have to pull out the datetime from the string 
-#     merged.sort
-        
-    
+
+
+
+    merged.sort()
+
+#Now I have a merged list of all input schedules cleaned up into a comparable format of minsSinceStartTime/Date
+
+#Will have to add a default "Schedule" of "events" for the hours closed in between each day
     print("Merged list:  ", merged)
 ##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
+
+convertToMinSinceStart('2021-07-06T14:36:00')
