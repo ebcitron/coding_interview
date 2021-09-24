@@ -1,6 +1,7 @@
 import json
 import sys
 from datetime import datetime, timedelta
+from typing import List
 
 
 
@@ -80,6 +81,44 @@ def convertBackToDate(s):
 
     return dateProper
 
+
+
+
+def combineOverlapping(sortedMergedList):
+#Research conventional python syntax, I remember like 3 different ways of writing the same function out, and mix/matching as I go is getting gross to look at.
+
+
+    sml = sortedMergedList
+
+    print("SML: ", sml)
+
+    if len(sml) == 0:
+        return []
+
+    clean = []
+
+    x,y = sml[0]
+
+    for (start, end) in sml[1:]:
+        if x <= start and start <= y:
+            y = max(end, y)
+        else:
+            clean.append((x,y))
+            x, y = start, end
+    clean.append((x,y))
+
+    return clean
+
+
+    # for y in sml:
+    #     if not clean or clean[-1][1] < y[0]:
+    #         clean.append(y)
+    #     else:
+    #         clean[-1][1] = max(clean[-1][1], y[1])
+
+    # return clean
+
+
 #Testing
 def returnSchedule(x):
    
@@ -90,11 +129,12 @@ def returnSchedule(x):
    
     
     print("Testing Results-----")
-    print("Searching for ", x)
-    print("We found the id of ", foundId)
+    print("Searching for: ", x)
+    print("We found the id of: ", foundId)
     print("Which is associated with these events: ", foundEvents)
     print("------------------------------------------------------")
-    print("Cleaned up data:", cleanEvents)
+    print("Cleaned up data: ", cleanEvents)
+    print("------------------------------------------------------")
     print("Converted by mins Passed: ", stripped)
     
 
@@ -114,12 +154,14 @@ def returnForAllSysArgs():
 
     merged.sort()
 
+    combined = combineOverlapping(merged)
 #Now I have a merged list of all input schedules cleaned up into a comparable format of minsSinceStartTime/Date
 
 #Will have to add a default "Schedule" of "events" for the hours closed in between each day
     print("Merged list:  ", merged)
+    print("Combined: ", combined)
 
-    
+
 ##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
 
