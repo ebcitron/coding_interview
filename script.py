@@ -118,6 +118,8 @@ def returnForAllSysArgs():
 
 #Will have to add a default "Schedule" of "events" for the hours closed in between each day
     print("Merged list:  ", merged)
+
+    
 ##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
 
