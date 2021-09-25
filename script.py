@@ -1,6 +1,6 @@
 import json
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 from typing import List
 
 
@@ -118,6 +118,44 @@ def combineOverlapping(sortedMergedList):
     return clean
 
 
+def returnTimesFree(timesBusy):
+
+    tb = timesBusy
+
+    tf = []
+    start = []
+    prevEnd = []    
+    for x,y in zip(tb[::], tb[1::]):
+        print(x,y)
+        tf.append((x[1], y[0]))    
+
+    print("tf: ", tf)
+
+
+    # lst = [1,7,8,4,5,3]
+
+    # for x,y in zip(lst[::],lst[1::]):
+    #     print(x,y)
+   
+
+    return tf
+
+    # st = 0
+    # ed = 3360
+    # x,y = tb[0]
+    # for z in tb:
+    #     if z[1]
+
+
+
+
+        
+    #   loop through tb looking at each set
+    #   if x[0] >
+    #
+    #
+    #
+
     # for y in sml:
     #     if not clean or clean[-1][1] < y[0]:
     #         clean.append(y)
@@ -171,10 +209,14 @@ def returnForAllSysArgs():
     # print("Merged list:  ", merged)
     print("Combined: ", combined)
 
+    timesBusy = combined
+    returnTimesFree(timesBusy)
 
 ##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
 
-convertToMinSinceStart('2021-07-06T14:36:00')
+print("XXXXXX:   ", convertToMinSinceStart('2021-07-07T21:00:00'))
 
 
+
+  
