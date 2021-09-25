@@ -137,11 +137,7 @@ def returnTimesFree(timesBusy):
     print("tf: ", tf)
     
     
-    # lst = [1,7,8,4,5,3]
 
-    # for x,y in zip(lst[::],lst[1::]):
-    #     print(x,y)
-   
 
     return tf
 def displayResults(finalResults):
