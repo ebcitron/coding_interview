@@ -35,6 +35,8 @@ def getEvents(foundId):
 
     return foundEvents
 
+
+#Cleans the data, passing it into a list of objects with start and end times
 def cleanUpEvents(foundEvents):
     cleanEvents = []
     for x in foundEvents:
@@ -42,6 +44,7 @@ def cleanUpEvents(foundEvents):
 
     return cleanEvents
 
+#Function to run my datetime magick, converting the values out of strings into ints
 def convertCleanTostripped(cleanEvents):
     stripped = []
     for x in cleanEvents:
@@ -64,7 +67,7 @@ def convertToMinSinceStart(s):
     minsSince = int(tDelta.total_seconds()/60)
     
     return minsSince
-
+#Reverts a normal number back into a date value based on the starting date/time
 def convertBackToDate(s):
     startDate = datetime.strptime('2021-07-05T13:00:00', "%Y-%m-%dT%H:%M:%S")
 
@@ -74,10 +77,8 @@ def convertBackToDate(s):
     return dateProper
 
 
-
+#Takes the sorted list containing all of everyones events, and reduces it by combining overlapping tiimeframes into single timeslots
 def combineOverlapping(sortedMergedList):
-
-
     sml = sortedMergedList
 
 
@@ -98,7 +99,7 @@ def combineOverlapping(sortedMergedList):
 
     return clean
 
-
+#Compares the start time of 0 to the first busy minute, and every subsequent busy period end_time with the next busy periods starttime, and the last appointments end_time with the final possible minute before the office closes, appending these gaps into a new list of time free of appointments. 
 def returnTimesFree(timesBusy):
 
     tb = timesBusy
@@ -106,7 +107,6 @@ def returnTimesFree(timesBusy):
 
     start = 0
     end = 3360
-    print("IBIKI", tb[0][0])
     if tb[0][0]>start:
         a=(convertBackToDate(0),convertBackToDate(tb[0][0]))
         tf.append(a)
@@ -118,10 +118,9 @@ def returnTimesFree(timesBusy):
     if tb[-1][1]<end:
         a =(convertBackToDate(tb[-1][1]),convertBackToDate(end))
         tf.append(a)
-    print("Squibiki",(tb[-1][1]))
     return tf
 
-
+#Handles the formatting and printing of final results into the terminal
 def displayResults(finalResults):
     
     print("Free Schedule")
@@ -139,6 +138,7 @@ def displayResults(finalResults):
     return
 
 
+#Runs the above functions that handle the finding, sorting, and cleaning up of data on the names passed in as arguements
 def returnSchedule(x):
    
     foundId = getId(x)
@@ -150,7 +150,7 @@ def returnSchedule(x):
 
 
 
-
+#Runs the above function on each name passed in argv, merges them into a single list, sends that list off to be further proccessed, and calls the function to display the final results
 def returnForAllSysArgs():
     merged = []
     for x in lookingFor:
@@ -170,5 +170,5 @@ def returnForAllSysArgs():
     fTimes=returnTimesFree(timesBusy)
     displayResults(fTimes)
 
-
+#And finally, we run it all by calling the above function!
 returnForAllSysArgs()
