@@ -82,3 +82,18 @@ SO... ive got the functions written to return the appointments of anyone passed 
 
 
                     Ultimately im going to return the gaps between intervals of sorted/merged
+
+
+                                        
+-------------------------------------------------------------------------------------------Day 3------------------------------
+---------------------------------------------------------------
+
+        Im writing this up after the fact, because I pretty much had done all of my planning yesterday, and today was spent figuring out exactly how to go about implementing those ideas and doing so as efficiently as possible. I Wrote in the "margins" of the original working script file, and commented them out, along with the print statements I had used to test things.
+
+        I ended up deciding to go for what I thought was best despite remembering ways to slightly improve runtime and space complexity, for programs with such little input/data, the built in functions and data handling worked just fine. 
+
+        I did my best to document everything and show my thinking process while solving everything, but am prepared to discuss any questions you may have after checking things out. 
+
+        It had been a little while since Ive done python interview problem type challenges, and I enjoyed this one. Looking forward to hearing back from you! Thank you for taking your time to look at this.
+
+        --Eli Citron
