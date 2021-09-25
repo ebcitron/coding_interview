@@ -85,8 +85,12 @@ def convertToMinSinceStart(s):
 
 def convertBackToDate(s):
     startDate = datetime.strptime('2021-07-05T13:00:00', "%Y-%m-%dT%H:%M:%S")
-    dateProper = startDate + timedelta(minutes=s)
 
+
+    #print("STartDate", startDate)
+    dateProper = startDate + timedelta(minutes=s)
+    
+    #print("DateProper", dateProper)
     return dateProper
 
 
@@ -126,12 +130,13 @@ def returnTimesFree(timesBusy):
     start = []
     prevEnd = []    
     for x,y in zip(tb[::], tb[1::]):
-        print(x,y)
-        tf.append((x[1], y[0]))    
-
+        print(x[1],y[0])
+  
+        tf.append((convertBackToDate(x[1]), convertBackToDate(y[0])))
+    
     print("tf: ", tf)
-
-
+    
+    
     # lst = [1,7,8,4,5,3]
 
     # for x,y in zip(lst[::],lst[1::]):
@@ -139,6 +144,16 @@ def returnTimesFree(timesBusy):
    
 
     return tf
+def displayResults(finalResults):
+    
+    print("FINAL RESULTS")
+    for x in finalResults:
+        a = (x[0].strftime("%m/%d/%Y, %H:%M:%S"))
+        b = (x[1].strftime("%H:%M:%S"))
+
+        print(a, " --- ", b)
+        
+    return
 
     # st = 0
     # ed = 3360
@@ -210,12 +225,12 @@ def returnForAllSysArgs():
     print("Combined: ", combined)
 
     timesBusy = combined
-    returnTimesFree(timesBusy)
-
+    fTimes=returnTimesFree(timesBusy)
+    displayResults(fTimes)
+   # print("FreeTimes pre formatting", fTimes)
 ##Note : Look into "Propper" python naming conventions (camelCase, hyph-ened, etc_etc) :p
 returnForAllSysArgs()
 
-print("XXXXXX:   ", convertToMinSinceStart('2021-07-07T21:00:00'))
 
 
 
